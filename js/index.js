@@ -1,9 +1,9 @@
-//'use strict';
+'use strict';
 /* global gapi google $ Vue */
 
 const PDFJS = window['pdfjs-dist/build/pdf'];
 let vm;
-//((Vue, PDFJS) => {
+((PDFJS) => {
 	
 	// The Browser API key obtained from the Google API Console.
 	// Replace with your own Browser API key, or your own key.
@@ -48,18 +48,7 @@ let vm;
 		const printer = new MultiPrinter();
 		printer.loadAPIs();
 		
-		vm = new Vue({
-			el: '#vue-wrapper',
-			data: {
-				printer: printer,
-				errors: [],
-				
-			},
-		});
-		
 		console.log('hi!');
-		vm.printer.loadAPIs();
-		
 	});
 	
 	function getParameterByName(name, url) { //https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
@@ -79,7 +68,7 @@ let vm;
 		}
 		
 		loadAPIs(){ // Use the Google API Loader script to load the google.picker script.
-			gapi.load('auth', { callback: () => this.onAuthApiLoad() });
+			//gapi.load('auth', { callback: () => this.onAuthApiLoad() });
 			gapi.load('picker', { callback: () => this.onPickerApiLoad() });
 			gapi.load('client:auth2', { callback: () => this.initClient() });console.log('loadinggg');
 		}
@@ -104,7 +93,7 @@ let vm;
 				'client_id': clientId,
 				'scope': scope,
 				'immediate': false
-			}, () => this.handleAuthResult());
+			}, (result) => this.handleAuthResult(result));
 		}
 		
 		onPickerApiLoad() {
@@ -112,14 +101,14 @@ let vm;
 			pickerButton.onclick = () => this.createPicker();
 		}
 		
-		handleAuthResult(authResult) {
+		handleAuthResult(authResult) { console.log('handleAuthResult');console.log(authResult);
 			if (authResult && !authResult.error) {
 				oauthToken = authResult.access_token;
-				//gapi.load('drive',{ callback: ()=>{console.log('got drive');} });
+				gapi.load('drive',{ callback: ()=>{console.log('got drive');} });
 			}
 		}
 		
-		createPicker() {
+		createPicker() { console.log('createPicker');
 			if (pickerApiLoaded && oauthToken) {
 				const view = new google.picker.View(google.picker.ViewId.DOCS);
 				//view.setMimeTypes("image/png,image/jpeg,image/jpg");
@@ -222,8 +211,4 @@ let vm;
 		
 	}
 	
-	// Create and render a Picker object for searching images.
-	
-	// A simple callback implementation.
-	
-//})(Vue, window['pdfjs-dist/build/pdf'].PDFJS);
+})(window['pdfjs-dist/build/pdf'].PDFJS);

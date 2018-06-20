@@ -7,28 +7,26 @@
 	<link rel="stylesheet" href="./css/main.css" type="text/css" />
 	<script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue"></script>
 	<script type="text/javascript" src="./js/vendor/pdf.js"></script>
 	<script type="text/javascript" src="./js/index.js"></script>
   </head>
   <body>
-  	<div id="vue-wrapper"></div>
-		<h1>Drive Multi-Print</h1>
-		<div id="ui">
-			<button id="authorize-button" style="display: none;">Authorize</button>
-			<button id="signout-button" style="display: none;">Sign Out</button>
-			<textarea id="url-input" cols="122" placeholder="URLs to Drive documents" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
-			<br />
-			<button @click="printer.createPicker()" id="picker-btn">Select from Drive</button>
-			<button id="print-btn">Print</button>
-			<span>Due to API limitations, each document must be smaller than 10MB.</span>
-			<progress id="render-progress" value="0"></progress>
-			<div id="errors">
-				<div v-for="error in errors">{{error.detail}}</div>
-			</div>
+	<h1>Drive Multi-Print</h1>
+	<div id="ui">
+		<button id="authorize-button" style="display: none;">Authorize</button>
+		<button id="signout-button" style="display: none;">Sign Out</button>
+		<textarea id="url-input" cols="122" placeholder="URLs to Drive documents" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+		<br />
+		<button @click="printer.createPicker()" id="picker-btn">Select from Drive</button>
+		<button id="print-btn">Print</button>
+		<span>Due to API limitations, each document must be smaller than 10MB.</span>
+		<progress id="render-progress" value="0"></progress>
+		<div id="errors">
+			<div v-for="error in errors">{{error.detail}}</div>
 		</div>
-		<div id="result"></div>
-		<pre id="content"></pre>
-		<div id="errors"></div>
+	</div>
+	<div id="result"></div>
+	<pre id="content"></pre>
+	<div id="errors"></div>
   </body>
 </html>

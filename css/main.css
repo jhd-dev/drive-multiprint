@@ -1,0 +1,31 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+#result {
+    display: none;
+}
+
+@media print {
+    
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    
+    body > *:not(#result) {
+        display: none;
+    }
+    
+    #result {
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    
+}
+
+@page {
+    size: auto;   /* auto is the initial value */
+    margin: 0mm;  /* this affects the margin in the printer settings */
+}
